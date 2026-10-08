@@ -7,6 +7,7 @@ import { ChatbotCard } from './components/ChatbotCard';
 import { UpcomingBotCard } from './components/UpcomingBotCard';
 import { IdeaModal } from './components/IdeaModal';
 import { HashtagFilterModal } from './components/HashtagFilterModal';
+import { TextStudioModal } from './components/TextStudioModal';
 import { Footer } from './components/Footer';
 import { SparkleCursorTrail } from './components/SparkleCursorTrail';
 import { filterBotByQuery } from './utils/search';
@@ -22,6 +23,7 @@ export default function App() {
   const [bgImage] = useState<BackgroundImage>(() => getRandomBackground());
   const [isIdeaModalOpen, setIsIdeaModalOpen] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [isTextStudioOpen, setIsTextStudioOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [batchSize, setBatchSize] = useState<number>(() => getBatchSize());
@@ -160,7 +162,11 @@ export default function App() {
       {/* Nội dung chính đặt trong vùng z-10 để nổi lên trên lớp nền blur */}
       <div className="relative z-10 min-h-screen flex flex-col justify-between w-full">
         {/* Header / Thanh điều hướng */}
-        <Header onGoHome={handleGoHome} onOpenCategories={handleOpenCategories} />
+        <Header 
+          onGoHome={handleGoHome} 
+          onOpenCategories={handleOpenCategories} 
+          onOpenTextStudio={() => setIsTextStudioOpen(true)}
+        />
 
         {/* Khu vực hiển thị nội dung chính */}
         <main className="flex-grow max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14 w-full">
@@ -432,6 +438,12 @@ export default function App() {
       <IdeaModal 
         isOpen={isIdeaModalOpen} 
         onClose={() => setIsIdeaModalOpen(false)} 
+      />
+
+      {/* AI Trợ Lý Xử Lý Văn Bản Modal (Tóm tắt, Sửa lỗi, Giải thích, Quizz) */}
+      <TextStudioModal
+        isOpen={isTextStudioOpen}
+        onClose={() => setIsTextStudioOpen(false)}
       />
 
       {/* Hiệu ứng Bling Bling nhẹ sau đuôi cursor khi di chuột nhanh */}

@@ -1,17 +1,18 @@
 import React from 'react';
-import { MessageSquareHeart, Home, Tags } from 'lucide-react';
+import { MessageSquareHeart, Home, Tags, Sparkles } from 'lucide-react';
 
 interface HeaderProps {
   onGoHome?: () => void;
   onOpenCategories?: () => void;
+  onOpenTextStudio?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onGoHome, onOpenCategories }) => {
+export const Header: React.FC<HeaderProps> = ({ onGoHome, onOpenCategories, onOpenTextStudio }) => {
   return (
     <header className="border-b border-white/30 bg-white/40 sticky top-0 backdrop-blur-md z-40 transition-all">
       <div className="max-w-5xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3.5 flex justify-center items-center gap-2 sm:gap-4">
-        {/* Nhóm các nút điều hướng Header: Trang chủ, Thể loại, Feedback */}
-        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        {/* Nhóm các nút điều hướng Header: Trang chủ, Thể loại, AI Trợ lý, Feedback */}
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 flex-wrap justify-center">
           {/* Nút Trang chủ */}
           <button
             type="button"
@@ -50,6 +51,20 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onOpenCategories }) =>
             <Tags className="w-4 h-4 sm:w-5 sm:h-5 text-[#9d70aa]" />
             <span>Thể loại</span>
           </button>
+
+          {/* Nút AI Studio Xử lý Văn bản */}
+          {onOpenTextStudio && (
+            <button
+              type="button"
+              onClick={onOpenTextStudio}
+              className="header-nav-btn inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-2xs cursor-pointer active:scale-95 bg-white/70 hover:bg-white/90 text-rose-700 border border-rose-200"
+              id="nav-text-studio-btn"
+              title="Công cụ AI Xử Lý Văn Bản (Tóm tắt, Sửa lỗi, Quiz)"
+            >
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500" />
+              <span>AI Trợ Lý</span>
+            </button>
+          )}
 
           {/* Nút Feedback chuyển hướng tới Facebook */}
           <a
